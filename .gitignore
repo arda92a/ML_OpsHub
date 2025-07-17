@@ -1,0 +1,32 @@
+# Virtual environments
+venv/
+env/
+
+# Jupyter Notebook checkpointleri
+.ipynb_checkpoints/
+
+# Ortam dosyaları
+.env
+
+# IDE ve editör dosyaları
+.vscode/
+.idea/
+*.swp
+
+# Log ve geçici dosyalar
+*.log
+tmp/
+
+# MLflow ve modeller
+.mlruns/
+*.pkl
+
+# Docker
+*.pid
+
+# OS dosyaları
+.DS_Store
+Thumbs.db
+
+# Diğer
+*.bak 

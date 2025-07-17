@@ -1,0 +1,131 @@
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    networks:
+      - ml_network
+
+  mlflow:
+    image: python:3.11-slim
+    container_name: mlflow
+    ports:
+      - "5000:5000"
+    environment:
+      MLFLOW_TRACKING_URI: "http://0.0.0.0:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    networks:
+      - ml_network
+    command: >
+      bash -c "
+        pip install mlflow==2.8.1 &&
+        mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlruns
+      "
+    
+
+  analysis-service:
+    container_name: analysis-service
+    build:
+      context: ./analysis-service
+      dockerfile: Dockerfile
+    environment:
+      - PYTHONPATH=/app/src
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+      - MINIO_BUCKET=smartem-bucket
+      - MODEL_NAME=classification_model
+      - MODEL_TYPE=random_forest
+      - LOG_LEVEL=INFO
+      - MLFLOW_SERVICE_URL=http://ml-service:8001/api/mlflow/submit-model
+    depends_on:
+      - minio
+    networks:
+      - ml_network
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./analysis-service/data:/app/data
+    command: uvicorn src.api.analysis_service:app --host 0.0.0.0 --port 8000
+
+  ml-service:
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8001
+      - LOG_LEVEL=INFO
+      - ANALYSIS_SERVICE_URL=http://analysis-service:8000
+    build:
+      context: ./ml-service
+      dockerfile: Dockerfile
+    container_name: ml-service
+    ports:
+      - "8001:8001"
+    networks:
+      - ml_network
+    depends_on:
+      - mlflow
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - .mlruns:/mlruns
+
+  backend-service:
+    build:
+      context: ./backend-service
+    container_name: backend-service
+    ports:
+      - "8002:8002"
+    environment:
+      - PYTHONPATH=/app/src
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - MLFLOW_ARTIFACT_PATH=models
+      - MLFLOW_REGISTERED_MODEL_NAME=classification-model
+      - LOG_LEVEL=INFO
+    depends_on:
+      - mlflow
+    networks:
+      - ml_network
+    volumes:
+      - .mlruns:/mlruns
+
+  ml-workflow-ui:
+    build:
+      context: ./ml-workflow-ui
+    container_name: ml-workflow-ui
+    ports:
+      - "8501:8501"
+    depends_on:
+      - analysis-service
+    networks:
+      - ml_network
+
+  model-management-ui:
+    build:
+      context: ./model-management-ui
+    container_name: model-management-ui
+    ports:
+      - "8502:8502"
+    depends_on:
+      - analysis-service
+    networks:
+      - ml_network
+
+volumes:
+  minio_data:
+
+networks:
+  ml_network:
+    driver: bridge
