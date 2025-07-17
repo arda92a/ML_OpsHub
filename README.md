@@ -1,7 +1,5 @@
 # ML OpsHub
 
-![ML OpsHub Banner - Buraya platformun genel bir görseli ekleyin](docs/images/banner.png)
-
 ## 🚀 Makine Öğrenimi Operasyonları için Entegre Platform
 
 **ML OpsHub**, veri bilimi ve makine öğrenimi projelerinizin tüm yaşam döngüsünü tek bir yerde yönetmenizi sağlayan modern, ölçeklenebilir ve kullanıcı dostu bir platformdur. Veri yüklemeden model eğitimine, model yönetiminden raporlamaya kadar tüm süreçleri kolayca yönetin.
@@ -92,7 +90,7 @@ ML_OpsHub/
 ### Hızlı Başlangıç
 1. **Projeyi klonlayın:**
    ```bash
-   git clone https://github.com/kullanici_adiniz/ml-opshub.git
+   git clone https://github.com/arda92a/ML_OpsHub.git
    cd ml-opshub
    ```
 2. **Tüm sistemi başlatın:**
@@ -111,28 +109,57 @@ ML_OpsHub/
 ## Kullanım
 
 ### 1. Veri Yükleme ve Analiz
-![Veri Yükleme Ekranı - Buraya veri yükleme arayüzünün bir ekran görüntüsünü ekleyin](docs/images/data_upload.png)
+![Veri Yükleme Ekranı - Buraya veri yükleme arayüzünün bir ekran görüntüsünü ekleyin](docs/images/data_upload.JPG)
 - CSV/XLSX dosyanızı yükleyin, otomatik analiz ve önişleme önerilerini görüntüleyin.
 
 ### 2. Veri Analizi ve Görselleştirme
-![Veri Analizi Ekranı - Analiz sekmelerinin ekran görüntüsü](docs/images/data_analysis.png)
-- Eksik değer, benzersiz değer, histogram, boxplot, kategorik grafik ve korelasyon analizi sekmelerini kullanın.
+
+#### Genel Veri Özeti
+![Veri Özeti](docs/images/veri_özeti.JPG)
+- Yüklenen veri setinin temel istatistiksel özetini ve genel yapısını görüntüleyebilirsiniz.
+
+#### Eksik Değer Analizi
+![Eksik Değerli](docs/images/eksik_değerli.JPG)
+- Veri setindeki eksik değerlerin dağılımını ve oranlarını inceleyin.
+
+#### Benzersiz Değer Analizi
+![Benzersiz Değerler](docs/images/benzersiz_değerler.JPG)
+- Her sütundaki benzersiz değer sayılarını ve oranlarını analiz edin.
+
+#### Kategorik Değişkenlerin Dağılımı
+![Kategorik Pie](docs/images/kategorik_pie.JPG)
+- Kategorik değişkenlerin pasta grafiği ile dağılımını görselleştirin.
+
+#### Histogramlar
+![Histogramlar](docs/images/histogramlar.JPG)
+- Sayısal değişkenlerin dağılımını histogramlar ile analiz edin.
+
+#### Önerilen Önişlemeler
+![Önerilen Önişlemeler](docs/images/önerilen_önişlemeler.JPG)
+- Otomatik olarak önerilen önişleme adımlarını ve veri temizleme önerilerini görüntüleyin.
 
 ### 3. Model Eğitimi
-![Model Eğitimi Ekranı - Model eğitimi ve sonuçlarının ekran görüntüsü](docs/images/model_training.png)
-- Farklı algoritmalarla modelinizi eğitin, sonuçları ve metrikleri anında görün.
+
+#### Model Eğitim Arayüzü
+![Model Eğitim Arayüzü](docs/images/model_eğitim_arayüz.JPG)
+- Farklı algoritmalarla modelinizi eğitebileceğiniz kullanıcı dostu arayüz.
+
+#### Karşılaştırma Sekmesi ve Sonuç Tablosu
+![Karşılaştırma Sekmesi Tablo](docs/images/karşılaştırma_sekmesi_tablo.JPG)
+- Farklı modellerin başarı metriklerini ve karşılaştırma sonuçlarını tablo halinde analiz edin.
+
+#### Model Sonuç Detayları
+![Model Sonuç Detayları](docs/images/model_sonuç_detayları.JPG)
+- Eğitilen modelin doğruluk, hata oranı, ROC eğrisi gibi detaylı metrik ve grafiklerini görüntüleyin.
+
 
 ### 4. Model Yönetimi
-![Model Yönetimi Ekranı - MLflow model yönetimi arayüzü](docs/images/model_management.png)
+![Model Yönetimi Ekranı - MLflow model yönetimi arayüzü](docs/images/ui_2_model_managment.JPG)
 - Eğittiğiniz modelleri MLflow ile kaydedin, versiyonlayın ve izleyin.
 
 ### 5. Raporlama
-![Rapor Yönetimi Ekranı - Rapor yükleme ve görüntüleme ekranı](docs/images/report_management.png)
+![Rapor Yönetimi Ekranı - Rapor yükleme ve görüntüleme ekranı](docs/images/ui_report_managment.JPG)
 - Proje raporlarınızı yükleyin, yönetin ve ekibinizle paylaşın.
-
-### 6. API Dokümantasyonu
-![API Docs Ekranı - FastAPI/Swagger arayüzü](docs/images/api_docs.png)
-- Tüm servislerin API uç noktalarını ve örneklerini inceleyin.
 
 ---
 
@@ -150,26 +177,9 @@ ML_OpsHub/
 
 ---
 
-## Katkı Sağlama
-Katkılarınızı memnuniyetle karşılıyoruz!  
-Lütfen önce [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını inceleyin.
-
----
-
 ## Lisans
 Bu proje MIT lisansı ile lisanslanmıştır.  
 Daha fazla bilgi için [LICENSE](LICENSE) dosyasına bakabilirsiniz.
 
 ---
 
-## Görsel Önerileri
-- **banner.png:** Projenin genel bir tanıtım görseli (en üstte)
-- **architecture.png:** Sistem mimarisi diyagramı
-- **data_upload.png:** Veri yükleme arayüzü ekran görüntüsü
-- **data_analysis.png:** Veri analizi sekmeleri ekran görüntüsü
-- **model_training.png:** Model eğitimi arayüzü ekran görüntüsü
-- **model_management.png:** Model yönetimi arayüzü ekran görüntüsü
-- **report_management.png:** Rapor yönetimi arayüzü ekran görüntüsü
-- **api_docs.png:** API dokümantasyonu ekran görüntüsü
-
-> **Not:** Görselleri `docs/images/` klasörüne ekleyip, yukarıdaki yerlere uygun şekilde yerleştirebilirsiniz. 
