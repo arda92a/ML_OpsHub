@@ -31,7 +31,7 @@
 
 ## Mimari
 
-![Mimari Diyagram - Buraya sistemin genel mimarisini gösteren bir diyagram ekleyin](docs/images/architecture.png)
+<img src="docs/images/architecture.png" alt="Mimari Diyagram" width="300"/>
 
 **Mimari Akış:**
 - Tüm servisler mikroservis mimarisiyle izole ve ölçeklenebilir şekilde çalışır.
